@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AutoTestLeson1.Test
 {
-    class DecathlonTest : TestBase
+    public class DecathlonTest : TestBase
     {
         [Order(1)]
         [TestCase("BARN 60 HOT TIGER", "5", TestName = "Ar teisingai paskaiciuoja kaina krepselyje pasirinkus kelis vienetus")]
@@ -27,7 +27,7 @@ namespace AutoTestLeson1.Test
         [Order(2)]
         [TestCase("Kamuolys", 50, "High to Low", TestName = "Ar galima nusipirkti brangiausia kalmuoli uz 50 euru")]
 
-        public void TestMostExpensiveBall(string itemInShop, double myMoney, string sortingBy)
+        public void TestMostExpensiveBall(string itemInShop, int myMoney, string sortingBy)
         {
             _page.NavigateToPage()
                  .InsertSearch(itemInShop)
@@ -49,7 +49,6 @@ namespace AutoTestLeson1.Test
         }
 
         [Order(4)]
-
         [TestCase("SKYRAZER 500", "TeastName", "TestSurename", TestName = "Tirinam nepilnai uzpildyta rezervacja")]
         [Obsolete]
         public void TestReservGlasesWithoutEmailAndPhone(string searchGlassName, string testName, string testSurename)
@@ -67,7 +66,6 @@ namespace AutoTestLeson1.Test
         }
 
         [Order(5)]
-
         [TestCase("saudymo is lanko rinkinys", 1000, TestName = "Ar lankas turi daugiau nei 1000 atsiliepimu")]
         [Obsolete]
         public void TestArcherySetReviews(string searchArcherySet, int expectedReviewCount)

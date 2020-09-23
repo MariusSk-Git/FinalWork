@@ -25,7 +25,7 @@ namespace AutoTestLeson1.Page
 
         public void CloseBrowser()
         {
-            //driver.Quit();
+            driver.Quit();
         }
     }
 }

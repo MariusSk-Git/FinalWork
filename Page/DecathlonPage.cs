@@ -26,7 +26,7 @@ namespace AutoTestLeson1.Page
         private SelectElement _quantityChange => new SelectElement(driver.FindElement(By.ClassName("qty-change")));
         private IWebElement _singlePrice => driver.FindElement(By.CssSelector("#item-1593155 > td.product-cart-price.product-cart-total-price > span > span"));
         private IWebElement _totalPrice => driver.FindElement(By.CssSelector("#item-1593155 > td.product-cart-total > span > span"));
-        
+
         // 2
         private SelectElement _selectTool => new SelectElement(driver.FindElement(By.Id("selecttool")));
         private IWebElement _sortedExpensiveBallPrice => driver.FindElement(By.CssSelector("#product-price-480483 > span"));
@@ -37,8 +37,10 @@ namespace AutoTestLeson1.Page
         private IWebElement _addressFirstLine => driver.FindElement(By.CssSelector("#country-list-wrapper > div > div > div > div > div:nth-child(2)"));
         private IWebElement _lowestElement => driver.FindElement(By.CssSelector("body > div.wrapper > div > div.page-footer > div.footer--bottom.clearfix > div > div.footer--menu > div > ul > li:nth-child(1) > a"));
         private IWebElement _saturdayClosingTime => driver.FindElement(By.CssSelector("#your-shop > div > div.st-p-main > div:nth-child(1) > div:nth-child(2) > ul > li:nth-child(6) > span.schedule > big:nth-child(3)"));
-        
+
         // 4
+        private const string emailError = "Please enter a valid email address";
+        private const string phoneError = "Please enter your phone number";
         private IWebElement _searchGlasesResult => driver.FindElement(By.CssSelector("#product-collection-image-435126"));
         private IWebElement _reserveButton => driver.FindElement(By.CssSelector("#product_shop > div.product-shop__box.product-shop__box--buy > div > div:nth-child(2) > a.btn-stock-store.cta-v2.button.step1"));
         private IWebElement _reserve5HButton => driver.FindElement(By.CssSelector("#step1 > div > div.content > div > a"));
@@ -52,7 +54,7 @@ namespace AutoTestLeson1.Page
         private IWebElement _searchBowResult => driver.FindElement(By.CssSelector("#product-collection-image-421401"));
         private IWebElement _reviewnumber => driver.FindElement(By.CssSelector("#product-review > div > div.small-12.columns.product-section__content-container > div.review-stats > div.review-stats__avg > div.review-stats__numbers > div.review-number > span"));
 
-        
+
         public DecathlonPage(IWebDriver webdriver) : base(webdriver)
         { }
         public DecathlonPage NavigateToPage()
@@ -118,14 +120,11 @@ namespace AutoTestLeson1.Page
         {
             string HidhToLow = "High to Low";
             if (HidhToLow == sorting)
-            {
-                _selectTool.SelectByValue("https://www.decathlon.lt/lt_lt/catalogsearch/result/index/?dir=desc&order=price&q=Kamuolys");
-                return this;
-            }
+                _selectTool.SelectByText("Kaina: nuo aukščiausios iki žemiausios");
             return this;
         }
 
-        public DecathlonPage AssertBallPrice(double result)
+        public DecathlonPage AssertBallPrice(int result)
         {
             string prepareWebResult = _sortedExpensiveBallPrice.Text.Replace(",", "").Replace("€", "").Trim();
             Assert.IsTrue((Int32.Parse(prepareWebResult) / 100) <= result, "You dont have money for expensive ball");
@@ -210,8 +209,6 @@ namespace AutoTestLeson1.Page
 
         public DecathlonPage AssertReservationErrors()
         {
-            string emailError = "Please enter a valid email address";
-            string phoneError = "Please enter your phone number";
             Assert.AreEqual(emailError, _reserveFormEmailError.Text, "Email error dont match");
             Assert.AreEqual(phoneError, _reserveFormPhoneError.Text, "Phone error dont match");
             return this;
@@ -231,6 +228,5 @@ namespace AutoTestLeson1.Page
             Assert.IsTrue(Int32.Parse(_reviewnumber.Text) > expectedReviewCount, "There is less review then expected");
             return this;
         }
-
     }
 }

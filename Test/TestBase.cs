@@ -16,22 +16,23 @@ namespace AutoTestLeson1.Test
     {
         public static IWebDriver _driver;
         public static DecathlonPage _page;
+        public static TopoCentrasPage _topoCentrasPage;
+        public static SenukaiPage _senukaiPage;
 
-
-       [OneTimeSetUp]
+        [OneTimeSetUp]
         public static void SetUp()
         {
             _driver = CustomDriver.GetDriver(Browsers.Chrome);
             _page = new DecathlonPage(_driver);
+            _topoCentrasPage = new TopoCentrasPage(_driver);
+            _senukaiPage = new SenukaiPage(_driver);
         }
 
         [TearDown]
         public static void TakeScreenshot()
         {
             if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
-            {
                 MyScreenShot.MakeScreeshot(_driver);
-            }
         }
 
         [OneTimeTearDown]
